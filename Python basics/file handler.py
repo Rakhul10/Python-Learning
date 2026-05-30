@@ -37,11 +37,22 @@ h.seek(0)
 print("Is file readable:", h.readable()) #it will return false as file is opened in write mode
 h.close()
 ##############################################
+#write and readmode
+h=open(r"C:\Users\admin\Downloads\File_handling_test.txt1", "w+") # w+ mode truncates (clears) the file when you open it.
+h.write("This is a new file created - write mode.\n")
+h.seek(0) #it will return empty string as file pointer is at the end of the file
+print("File content:", h.read()) 
+print("Is file readable:", h.readable()) #it will return false as file is opened in write mode
+h.close()
+##########################################
 #in interative mode, if u write something it will not be saved until u close the file or flush the buffer
-m=open(r"C:\Users\admin\Downloads\File_handling_test.txt1", "w")
+m=open(r"C:\Users\admin\Downloads\File_handling_test.txt1", "w+")
 m.write("This is another line in the file.\n") 
 m.flush()  # Flush the buffer to ensure data is written to the file
+print("File content after flush:", m.read())
 m.close()
+m=open(r"C:\Users\admin\Downloads\File_handling_test.txt1", "r")
+print("File content after close:", m.read())
 ##################################################
 #append mode
 k=open(r"C:\Users\admin\Downloads\File_handling_test.txt1", "a")
@@ -58,6 +69,9 @@ q=open(r"C:\Users\admin\Downloads\File_handling_test.txt1", "a+")
 print("a+ Is file readable:", q.readable())  
 print(q.closed) #to check is filed is closed or not
 q.close()
+#Feature	          "r+"	                       "w+"
+#File must exist	 ✓ Yes	                    ✗ No (creates if needed)
+#Truncates file	     ✗ No (preserves content)	✓ Yes (clears file)
 #reading image file
 with open(r"C:\Users\admin\Downloads\1471797.jpg", "rb") as f:
    img= f.read() # Read and print binary content of the image file
@@ -67,3 +81,12 @@ with open(r"C:\Users\admin\Downloads\1471797.jpg", "rb") as f:
 A =['Hai', 'Hello', 'Welcome', 'To', 'File', 'Handling']
 with open(r"C:\Users\admin\Downloads\File_handling_test2.txt", "w") as f2:
     f2.writelines("%s\n" % line for line in A)  # Write list of strings to file, each on a new line
+
+    #"x" - Create - will create a file, returns an error if the file exists
+
+    #DELETE FILE
+    import os
+if os.path.exists(r"C:\Users\admin\Downloads\File_handling_test.txt1"):
+  os.remove(r"C:\Users\admin\Downloads\File_handling_test.txt1")
+else:
+  print("The file does not exist")
